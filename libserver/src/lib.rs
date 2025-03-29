@@ -58,11 +58,21 @@ struct ServerConfig {
     pub database_path: String,
 }
 
-import!(malloc(amount: usize) -> *const u8 = 0x56A20);
-import!(free(ptr: *const u8) -> () = 0x56A2C);
+pub fn malloc(amount: usize) -> *const u8 {
+    unsafe  extern  "C" {
+        fn malloc(amount: usize) -> *const u8;
+    }
+
+    unsafe {
+        malloc(amount)
+    }
+} 
+
+//import!(malloc(amount: usize) -> *const u8 = 0x56A20);
+import!(free(ptr: *const u8) -> () = 0x54590);
 
 fn server_main(config: ServerConfig) {
-    const TCP_ADDR: &str = "127.0.0.1:9339";
+    const TCP_ADDR: &str = "0.0.0.0:9339";
 
     info!("starting server...");
 

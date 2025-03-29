@@ -14,7 +14,7 @@ where
     S: AsRef<str>,
 {
     fn from(value: S) -> Self {
-        import!(string_ctor(ptr: *const u8, data: *const u8) -> () = 0x176748 + 1);
+        import!(string_ctor(ptr: *const u8, data: *const i8) -> () = 0x22826A);
         let sc_string = malloc(32);
 
         string_ctor(sc_string, CString::new(value.as_ref()).unwrap().as_ptr());
@@ -26,7 +26,7 @@ impl fmt::Display for ScString {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
         let length = unsafe { *(self.0.wrapping_add(4) as *const i32) as usize };
         if length + 1 > 8 {
-            let c_string = unsafe { *(self.0.wrapping_add(8) as *const *const u8) };
+            let c_string = unsafe { *(self.0.wrapping_add(8) as *const *const i8) };
             unsafe {
                 write!(
                     f,
@@ -39,7 +39,7 @@ impl fmt::Display for ScString {
                 write!(
                     f,
                     "{}",
-                    CStr::from_ptr(self.0.wrapping_add(8) as *const u8)
+                    CStr::from_ptr(self.0.wrapping_add(8) as *const i8)
                         .to_string_lossy()
                         .to_string()
                 )
@@ -61,7 +61,7 @@ pub struct StringBuilder(pub *const u8);
 
 impl StringBuilder {
     pub fn new() -> Self {
-        import!(string_builder_ctor(ptr: *const u8) -> () = 0x1772BA + 1);
+        import!(string_builder_ctor(ptr: *const u8) -> () = 0x2295C4);
 
         let instance = malloc(12);
         string_builder_ctor(instance);
@@ -71,9 +71,11 @@ impl StringBuilder {
 
 impl fmt::Display for StringBuilder {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-        import!(string_builder_to_string(sc_str: *const u8, ptr: *const u8) -> () = 0x1772D8 + 1);
-        let sc_str = ScString::from("");
-        string_builder_to_string(sc_str.0, self.0);
-        write!(f, "{sc_str}")
+        unsafe {
+            let buffer = *(self.0.wrapping_add(8) as *const *const u8);
+            let length = *(self.0.wrapping_add(0) as *const i32);
+            let buffer = std::slice::from_raw_parts(buffer, (length - 1) as usize);
+            write!(f, "{}", String::from_utf8_lossy(buffer))
+        }
     }
 }

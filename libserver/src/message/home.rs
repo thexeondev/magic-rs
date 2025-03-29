@@ -16,7 +16,7 @@ pub struct OwnHomeDataMessage(pub PiranhaMessage);
 
 impl OwnHomeDataMessage {
     pub fn new() -> Self {
-        import!(own_home_data_message_ctor(ptr: *const u8) -> () = 0x16CD30 + 1);
+        import!(own_home_data_message_ctor(ptr: *const u8) -> () = 0x21790E);
 
         let instance = malloc(104);
         own_home_data_message_ctor(instance);
@@ -60,7 +60,7 @@ pub struct OutOfSyncMessage(pub PiranhaMessage);
 
 impl OutOfSyncMessage {
     pub fn new() -> Self {
-        import!(out_of_sync_message_ctor(ptr: *const u8) -> () = 0x16CB60 + 1);
+        import!(out_of_sync_message_ctor(ptr: *const u8) -> () = 0x2175CE);
         let instance = malloc(64);
         out_of_sync_message_ctor(instance);
         Self(PiranhaMessage(instance))
@@ -83,7 +83,7 @@ pub struct AvailableServerCommandMessage(pub PiranhaMessage);
 
 impl AvailableServerCommandMessage {
     pub fn new() -> Self {
-        import!(available_server_command_message_ctor(ptr: *const u8) -> () = 0x16B870 + 1);
+        import!(available_server_command_message_ctor(ptr: *const u8) -> () = 0x215520);
         let instance = malloc(100);
         available_server_command_message_ctor(instance);
         Self(PiranhaMessage(instance))
@@ -106,7 +106,7 @@ pub struct NpcDataMessage(pub PiranhaMessage);
 
 impl NpcDataMessage {
     pub fn new() -> Self {
-        import!(npc_data_message_ctor(ptr: *const u8) -> () = 0x16C9E8 + 1);
+        import!(npc_data_message_ctor(ptr: *const u8) -> () = 0x217340);
         let instance = malloc(64);
         npc_data_message_ctor(instance);
         Self(PiranhaMessage(instance))

@@ -13,7 +13,7 @@ pub struct LogicGameMode(pub *const u8);
 
 impl LogicGameMode {
     pub fn new() -> Self {
-        import!(logic_game_mode_ctor(ptr: *const u8) -> () = 0x149E0C + 1);
+        import!(logic_game_mode_ctor(ptr: *const u8) -> () = 0x1DC75A);
         let instance = malloc(68);
         logic_game_mode_ctor(instance);
 
@@ -26,7 +26,7 @@ impl LogicGameMode {
         logic_client_avatar: &LogicClientAvatar,
         seconds_since_last_save: i32,
     ) {
-        import!(logic_game_mode_load_home_state(lgm: *const u8, lch: *const u8, lca: *const u8, ssls: i32, a5: i32, a6: i32, a7: i32) -> () = 0x14ACCA + 1);
+        import!(logic_game_mode_load_home_state(lgm: *const u8, lch: *const u8, lca: *const u8, ssls: i32, a5: i32, a6: i32, a7: i32) -> () = 0x1DE0C6);
 
         logic_game_mode_load_home_state(
             self.0,
@@ -46,7 +46,7 @@ impl LogicGameMode {
         logic_client_avatar: &LogicClientAvatar,
         seconds_since_last_save: i32,
     ) {
-        import!(logic_game_mode_load_npc_attack_state(lgm: *const u8, lch: *const u8, lna: *const u8, lca: *const u8, ssls: i32) -> () = 0x14A1D8 + 1);
+        import!(logic_game_mode_load_npc_attack_state(lgm: *const u8, lch: *const u8, lna: *const u8, lca: *const u8, ssls: i32) -> () = 0x1DCE08);
 
         logic_game_mode_load_npc_attack_state(
             self.0,
@@ -80,7 +80,7 @@ impl LogicGameMode {
     }
 
     pub fn update_one_sub_tick(&self) {
-        import!(logic_game_mode_update_one_sub_tick(ptr: *const u8) -> () = 0x14A8EC + 1);
+        import!(logic_game_mode_update_one_sub_tick(ptr: *const u8) -> () = 0x1DDA14);
         logic_game_mode_update_one_sub_tick(self.0);
     }
 
@@ -89,7 +89,7 @@ impl LogicGameMode {
         debug_json: Option<&mut LogicJSONNode>,
         include_game_objects: bool,
     ) -> i32 {
-        import!(logic_game_mode_calculate_checksum(ptr: *const u8, debug_json: *const u8, include_game_objects: bool) -> i32 = 0x14AB54 + 1);
+        import!(logic_game_mode_calculate_checksum(ptr: *const u8, debug_json: *const u8, include_game_objects: bool) -> i32 = 0x1DDE0C);
 
         logic_game_mode_calculate_checksum(
             self.0,

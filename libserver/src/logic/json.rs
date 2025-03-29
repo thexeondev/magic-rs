@@ -5,7 +5,7 @@ pub struct LogicJSONNode(pub *const u8);
 
 impl LogicJSONNode {
     pub fn new_json_object() -> Self {
-        import!(logic_json_object_ctor(ptr: *const u8) -> () = 0x1A1DF0 + 1);
+        import!(logic_json_object_ctor(ptr: *const u8) -> () = 0x26A3A4);
         let instance = malloc(28);
         logic_json_object_ctor(instance);
         Self(instance)

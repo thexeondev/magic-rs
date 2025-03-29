@@ -25,7 +25,7 @@ impl LogicLevel {
     }
 
     pub fn save_to_json(&self, json: &mut LogicJSONNode) {
-        import!(logic_level_save_to_json(ptr: *const u8, json: *const u8) -> () = 0x147A48 + 1);
+        import!(logic_level_save_to_json(ptr: *const u8, json: *const u8) -> () = 0x1D8C56);
         logic_level_save_to_json(self.0, json.0);
     }
 }

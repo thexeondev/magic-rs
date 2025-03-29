@@ -6,7 +6,7 @@ pub struct ResourceManager;
 
 impl ResourceManager {
     pub fn get_json(path: &str) -> LogicJSONNode {
-        import!(resource_manager_get_json(path: *const u8) -> *const u8 = 0x18A750 + 1);
+        import!(resource_manager_get_json(path: *const i8) -> *const u8 = 0x246802);
         LogicJSONNode(resource_manager_get_json(
             CString::new(path).unwrap().as_ptr(),
         ))
@@ -18,7 +18,7 @@ struct DataLoaderFactory(*const u8);
 
 impl DataLoaderFactory {
     pub fn new() -> Self {
-        import!(data_loader_factory_ctor(ptr: *const u8) -> () = 0x18967C + 1);
+        import!(data_loader_factory_ctor(ptr: *const u8) -> () = 0x244C8E);
 
         let instance = malloc(4);
         data_loader_factory_ctor(instance);
@@ -31,7 +31,7 @@ struct ResourceListener(*const u8);
 
 impl ResourceListener {
     pub fn new() -> Self {
-        import!(resource_listener_ctor(ptr: *const u8) -> () = 0x189464 + 1);
+        import!(resource_listener_ctor(ptr: *const u8) -> () = 0x244968);
 
         let instance = malloc(20);
         resource_listener_ctor(instance);
@@ -39,12 +39,12 @@ impl ResourceListener {
     }
 
     pub fn add_file(&self, name: &str) {
-        import!(resource_listener_add_file(ptr: *const u8, name: *const u8, a3: i32, a4: i32, a5: i32, a6: i32) -> () = 0x18B1C0 + 1);
+        import!(resource_listener_add_file(ptr: *const u8, name: *const u8, a3: i32, a4: i32, a5: i32, a6: i32) -> () = 0x2477FC);
         resource_listener_add_file(self.0, ScString::from(name).0, -1, -1, -1, -1);
     }
 
     pub fn start_loading(&self) {
-        import!(resource_listener_start_loading(ptr: *const u8) -> () = 0x18B50C + 1);
+        import!(resource_listener_start_loading(ptr: *const u8) -> () = 0x247D98);
         resource_listener_start_loading(self.0);
     }
 }
@@ -94,16 +94,15 @@ pub fn init() {
     const NPCS_COUNT: usize = 48;
     const PREBASES_COUNT: usize = 11;
 
-    import!(resource_manager_init(factory: DataLoaderFactory, a2: *const u8) -> () = 0x18B898 + 1);
-    import!(resource_manager_resource_to_load() -> i32 = 0x1894B8 + 1);
-    import!(resource_manager_load_next_resource() -> () = 0x18A9EC + 1);
-    import!(logic_data_tables_init() -> () = 0x12CF54 + 1);
-    import!(logic_resources_create_data_table_resources_array() -> *const u8 = 0x136978 + 1);
-    import!(resource_manager_get_csv(csv: *const u8) -> *const u8 = 0x18A816 + 1);
-    import!(logic_resources_load(data_table_resources_array: *const u8, index: i32, csv: *const u8) -> *const u8 = 0x1368A8 + 1);
+    import!(resource_manager_init(factory: DataLoaderFactory, a2: *const u8) -> () = 0x2483E2);
+    import!(resource_manager_resource_to_load() -> i32 = 0x2449E2);
+    import!(resource_manager_load_next_resource() -> () = 0x246BDC);
+    import!(logic_data_tables_init() -> () = 0x1AC81E);
+    import!(logic_resources_create_data_table_resources_array() -> *const u8 = 0x1BC2A4);
+    import!(resource_manager_get_csv(csv: *const u8) -> *const u8 = 0x24690A);
+    import!(logic_resources_load(data_table_resources_array: *const u8, index: i32, csv: *const u8) -> *const u8 = 0x1BC154);
 
     let data_loader_factory = DataLoaderFactory::new();
-
     resource_manager_init(data_loader_factory, [0x00].as_ptr());
     logic_data_tables_init();
 

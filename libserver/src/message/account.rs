@@ -23,7 +23,7 @@ pub struct ExtendedSetEncryptionMessage(pub PiranhaMessage);
 
 impl ExtendedSetEncryptionMessage {
     pub fn new() -> Self {
-        import!(set_encryption_message_ctor(ptr: *const u8) -> () = 0x16F324 + 1);
+        import!(set_encryption_message_ctor(ptr: *const u8) -> () = 0x21BAE4);
         let instance = malloc(60);
         set_encryption_message_ctor(instance);
         Self(PiranhaMessage(instance))
@@ -50,7 +50,7 @@ pub struct LoginOkMessage(pub PiranhaMessage);
 
 impl LoginOkMessage {
     pub fn new() -> Self {
-        import!(login_ok_message_ctor(ptr: *const u8) -> () = 0x1629FC + 1);
+        import!(login_ok_message_ctor(ptr: *const u8) -> () = 0x2058F0);
 
         let instance = malloc(124);
         login_ok_message_ctor(instance);
@@ -104,7 +104,7 @@ pub struct KeepAliveServerMessage(pub PiranhaMessage);
 
 impl KeepAliveServerMessage {
     pub fn new() -> Self {
-        import!(keep_alive_server_message_ctor(ptr: *const u8) -> () = 0x161838 + 1);
+        import!(keep_alive_server_message_ctor(ptr: *const u8) -> () = 0x20390C);
         let instance = malloc(48);
         keep_alive_server_message_ctor(instance);
         Self(PiranhaMessage(instance))

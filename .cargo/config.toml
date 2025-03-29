@@ -1,2 +1,5 @@
-[build]
-target = "armv7-linux-androideabi"
+[target.i686-linux-android]
+linker = "C:\\android-ndk-r27c\\toolchains\\llvm\\prebuilt\\windows-x86_64\\bin\\i686-linux-android22-clang++.cmd"
+rustflags = [
+    "-C", "link-arg=C:\\android-ndk-r27c\\toolchains\\llvm\\prebuilt\\windows-x86_64\\lib\\clang\\18\\lib\\linux\\libclang_rt.builtins-i686-android.a"
+]

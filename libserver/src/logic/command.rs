@@ -24,7 +24,7 @@ pub struct LogicCommandManager(pub *const u8);
 
 impl LogicCommandManager {
     pub fn add_command(&self, command: &LogicCommand) {
-        import!(logic_command_manager_add_command(ptr: *const u8, command: *const u8) -> () = 0x11CA20 + 1);
+        import!(logic_command_manager_add_command(ptr: *const u8, command: *const u8) -> () = 0x191888);
         logic_command_manager_add_command(self.0, command.0);
     }
 }
@@ -33,7 +33,7 @@ pub struct LogicChangeAvatarNameCommand(pub LogicCommand);
 
 impl LogicChangeAvatarNameCommand {
     pub fn new() -> Self {
-        import!(logic_change_avatar_name_command_ctor(ptr: *const u8) -> () = 0x14F7D8 + 1);
+        import!(logic_change_avatar_name_command_ctor(ptr: *const u8) -> () = 0x1E5762);
         let instance = malloc(20);
         logic_change_avatar_name_command_ctor(instance);
         Self(LogicCommand(instance))

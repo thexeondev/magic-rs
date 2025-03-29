@@ -4,7 +4,7 @@ pub struct ByteStream(pub *const u8);
 
 impl ByteStream {
     pub fn new(initial_capacity: usize) -> Self {
-        import!(byte_stream_ctor(ptr: *const u8, initial_capacity: i32) -> () = 0x1A0DA8 + 1);
+        import!(byte_stream_ctor(ptr: *const u8, initial_capacity: i32) -> () = 0x2688E6);
         let instance = malloc(40);
         byte_stream_ctor(instance, initial_capacity as i32);
         Self(instance)
